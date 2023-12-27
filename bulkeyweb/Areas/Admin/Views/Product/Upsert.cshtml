@@ -1,0 +1,115 @@
+﻿@model ProductVM
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary">@(Model.Product.Id!=0?"Update":"Add") Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 mb-5">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden/>
+            <input asp-for="Product.ImageUrl" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4">
+                        <div class="row pb-2">
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.Title" class="pb-0"></label>
+                            <input asp-for="Product.Title" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.Title"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.Description" class="pb-0 text-muted"></label>
+                            <textarea asp-for="Product.Description" class="form-control"></textarea>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.ISBN" class="pb-0"></label>
+                            <input asp-for="Product.ISBN" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.ISBN"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.Author" class="pb-0"></label>
+                            <input asp-for="Product.Author" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.Author"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.ListPrice" class="pb-0"></label>
+                            <input asp-for="Product.ListPrice" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.ListPrice"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.Price" class="pb-0"></label>
+                            <input asp-for="Product.Price" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.Price"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.Price50" class="pb-0"></label>
+                            <input asp-for="Product.Price50" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.Price50"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.Price100" class="pb-0"></label>
+                            <input asp-for="Product.Price100" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Product.Price100"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="@Model.Product.CategoryId" class="pb-0"></label>
+                            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                                <option disabled selected>--Select Category--</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="Product.CategoryId"></span>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <label asp-for="Product.ImageUrl" class="pb-0"></label>
+                            <input type="file" name="file" class="form-control" />
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-3">
+                                @if (Model.Product.Id != 0)
+                                {
+                                    <button class="btn btn-primary form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-primary form-control">Create</button>
+                                }
+
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a class="btn btn-outline-secondary" asp-controller="Product" asp-action="Index">Back To List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <img src="@(Model.Product.ImageUrl)" width="100%" style="border-radius:5px; border:1px solid #bbb9b9"/>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+@section scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -1,0 +1,43 @@
+﻿@model Category
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary">Create Category</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 mb-5">
+        <form method="post" class="row">
+            <div class="border p-3 mt-4">
+                <div class="row pb-2">
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row mb-3 p-1">
+                    <label asp-for="name" class="pb-0"></label>
+                    <input asp-for="name" class="form-control" />
+                    <span class="text-danger" asp-validation-for="name"></span>
+                </div>
+                <div class="row mb-3 p-1">
+                    <label asp-for="displayOder" class="pb-0"></label>
+                    <input asp-for="displayOder" class="form-control" />
+                    <span class="text-danger" asp-validation-for="displayOder"></span>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <button class="btn btn-primary form-control">Create</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a class="btn btn-outline-secondary" asp-controller="Category" asp-action="Index">Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}
